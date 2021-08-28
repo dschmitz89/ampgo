@@ -27,6 +27,7 @@ Example: Minimizing Himmelblau's function in ampgo
 
 Documentation
 ---------------
+
 .. toctree::
    :maxdepth: 1
    :caption: Contents:

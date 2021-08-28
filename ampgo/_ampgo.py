@@ -81,38 +81,40 @@ def ampgo(objfun, bounds, args=(), x0 = 'random', jac = None, hess = None, hessp
         ``hessp(x, p, *args) ->  ndarray shape (n,n)``
     local_minimizer : str, optional, default ``L-BFGS-B`` \n 
         Local optimizer to use. Can be one of `Scipy's local optimizers <https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize>`_ 
-        or `NLopt's local optimizers <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/>`_ (requires simplenlopt to be installed).
-        Due to name clashes, NLopt's solvers have to be indicated by `nlopt_algorithm`.
+        or `NLopt's local optimizers <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/>`_ (requires simplenlopt to be installed). \n
+        Due to name clashes, NLopt's solvers have to be indicated by `nlopt_algorithm`. \n
         Should be one of:
-            - 'Nelder-Mead' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-neldermead.html>`_)
-            - 'Powell' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-powell.html>`_)
-            - 'CG' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-cg.html>`_)     
-            - 'BFGS' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-bfgs.html>`_)
-            - 'Newton-CG' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-newtoncg.html>`_)
-            - 'L-BFGS-B' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-lbfgsb.html>`_)
-            - 'TNC' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-tnc.html>`_)  
-            - 'COBYLA' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-cobyla.html>`_)     
-            - 'SLSQP' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-slsqp.html>`_)      
-            - 'trust-constr' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-trustconstr.html>`_)
-            - 'dogleg' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-dogleg.html>`_)     
-            - 'trust-ncg' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-trustncg.html>`_)
-            - 'trust-exact' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-trustexact.html>`_)
-            - 'trust-krylov' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-trustkrylov.html>`_)
-            - 'nlopt_lbfgs': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#low-storage-bfgs>`_)
-            - 'nlopt_slsqp': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#slsqp>`_)
-            - 'nlopt_mma': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#mma-method-of-moving-asymptotes-and-ccsa>`_)
-            - 'nlopt_ccsaq': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#mma-method-of-moving-asymptotes-and-ccsa>`_)
-            - 'nlopt_tnewton': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#preconditioned-truncated-newton>`_)
-            - 'nlopt_tnewton_restart':(`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#preconditioned-truncated-newton>`_)
-            - 'nlopt_tnewton_precond': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#preconditioned-truncated-newton>`_)
-            - 'nlopt_tnewton_precond_restart': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#preconditioned-truncated-newton>`_)
-            - 'nlopt_var1': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#shifted-limited-memory-variable-metric>`_)
-            - 'nlopt_var2': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#shifted-limited-memory-variable-metric>`_)
-            - 'nlopt_bobyqa': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#bobyqa>`_)
-            - 'nlopt_cobyla': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#cobyla-constrained-optimization-by-linear-approximations>`_)
-            - 'nlopt_neldermead': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#nelder-mead-simplex>`_)
-            - 'nlopt_sbplx': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#sbplx-based-on-subplex>`_)
-            - 'nlopt_praxis': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#praxis-principal-axis>`_)
+
+            - 'Nelder-Mead' ( `see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-neldermead.html>`_ )
+            - 'Powell' ( `see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-powell.html>`_ )
+            - 'CG' ( `see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-cg.html>`_ )   
+            - 'BFGS' ( `see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-bfgs.html>`_)
+            - 'Newton-CG' ( `see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-newtoncg.html>`_ )
+            - 'L-BFGS-B' ( `see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-lbfgsb.html>`_ )
+            - 'TNC' ( `see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-tnc.html>`_ ) 
+            - 'COBYLA' ( `see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-cobyla.html>`_ )     
+            - 'SLSQP' ( `see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-slsqp.html>`_ )      
+            - 'trust-constr' ( `see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-trustconstr.html>`_ )
+            - 'dogleg' ( `see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-dogleg.html>`_ )    
+            - 'trust-ncg' ( `see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-trustncg.html>`_ )
+            - 'trust-exact' ( `see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-trustexact.html>`_ )
+            - 'trust-krylov' ( `see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-trustkrylov.html>`_ )
+            - 'nlopt_lbfgs': ( `see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#low-storage-bfgs>`_ )
+            - 'nlopt_slsqp': ( `see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#slsqp>`_ )
+            - 'nlopt_mma': ( `see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#mma-method-of-moving-asymptotes-and-ccsa>`_ )
+            - 'nlopt_ccsaq': ( `see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#mma-method-of-moving-asymptotes-and-ccsa>`_ )
+            - 'nlopt_tnewton': ( `see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#preconditioned-truncated-newton>`_ )
+            - 'nlopt_tnewton_restart':( `see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#preconditioned-truncated-newton>`_ )
+            - 'nlopt_tnewton_precond': ( `see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#preconditioned-truncated-newton>`_ )
+            - 'nlopt_tnewton_precond_restart': ( `see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#preconditioned-truncated-newton>`_ )
+            - 'nlopt_var1': ( `see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#shifted-limited-memory-variable-metric>`_ )
+            - 'nlopt_var2': ( `see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#shifted-limited-memory-variable-metric>`_ )
+            - 'nlopt_bobyqa': ( `see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#bobyqa>`_ )
+            - 'nlopt_cobyla': ( `see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#cobyla-constrained-optimization-by-linear-approximations>`_ )
+            - 'nlopt_neldermead': ( `see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#nelder-mead-simplex>`_ )
+            - 'nlopt_sbplx': ( `see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#sbplx-based-on-subplex>`_ )
+            - 'nlopt_praxis': ( `see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#praxis-principal-axis>`_ )
+
     local_minimizer_options : dict, optional
         Additional options passed to the local minimizer. Check the individual algorithm's description for possible options.
     maxfunevals: int, optional, default None
@@ -120,7 +122,7 @@ def ampgo(objfun, bounds, args=(), x0 = 'random', jac = None, hess = None, hessp
     totaliter: int
         The maximum number of global iterations allowed.
     maxiter: int
-        maximum number of `Tabu Tunnelling` iterations allowed during each global iteration.
+        maximum number of Tabu Tunnelling iterations allowed during each global iteration.
     glbtol: float, optional, default 1e-5
         The optimization will stop if the absolute difference between the current minimum objective
         function value and the provided global optimum (`fmin`) is less than `glbtol`.
@@ -142,17 +144,18 @@ def ampgo(objfun, bounds, args=(), x0 = 'random', jac = None, hess = None, hessp
     
     Returns
     -------
-    result : :py:class:`~OptimizeResult`
-        The optimization result represented as a :py:class:`~OptimizeResult` object.
+    result : OptimizeResult
+        The optimization result represented as a OptimizeResult object.
         Important attributes are: ``x`` the solution array, ``fun`` the value
         of the function at the solution, and ``message`` which describes the
         cause of the termination.
-        See :py:class:`~OptimizeResult` for a description of other attributes.
+        See OptimizeResult for a description of other attributes.
 
-    The detailed implementation of AMPGO is described in the paper 
-    "Adaptive Memory Programming for Constrained Global Optimization" located here:
+    The detailed implementation of AMPGO is described in the
+    `paper <http://leeds-faculty.colorado.edu/glover/fred%20pubs/416%20-%20AMP%20(TS)%20for%20Constrained%20Global%20Opt%20w%20Lasdon%20et%20al%20.pdf>`_ 
+    "Adaptive Memory Programming for Constrained Global Optimization"
 
-    http://leeds-faculty.colorado.edu/glover/fred%20pubs/416%20-%20AMP%20(TS)%20for%20Constrained%20Global%20Opt%20w%20Lasdon%20et%20al%20.pdf
+    
 
     Copyright 2014 Andrea Gavana, 2021 Daniel Schmitz
     """
