@@ -29,7 +29,7 @@ Documentation
    :maxdepth: 1
    :caption: Contents:
 
-   simplenlopt
+   ampgo
 
    
 Indices and tables
