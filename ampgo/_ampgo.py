@@ -4,7 +4,7 @@ import warnings
 try:
     from simplenlopt import minimize as minimize_nlopt
     simplenlopt_available = True
-except IOError:
+except ModuleNotFoundError:
     simplenlopt_available = False
 
 class OptimizeResult(dict):
@@ -62,7 +62,7 @@ def ampgo(objfun, bounds, args=(), x0 = 'random', jac = None, hess = None, hessp
     args : tuple, optional, default ()
         Further arguments to describe the objective function
     x0 : {ndarray, 'random'}, optional, default 'random'
-        Starting guess for the decision variable. If 'random', picks a random point in the feasible region
+        Starting guess for the decision variable. If 'random', picks a random point in the feasible region.
     method : string, optional, default 'auto'
     jac : {callable,  '2-point', '3-point', True}, optional, default None
         If callable, must be in the form ``jac(x, *args)``, where ``x`` is the argument
@@ -71,68 +71,91 @@ def ampgo(objfun, bounds, args=(), x0 = 'random', jac = None, hess = None, hessp
         If '2-point' will use forward difference to approximate the gradient.\n
         If '3-point' will use central difference to approximate the gradient.\n
         If True, objfun must return a tuple of both objective function and an array holding the gradient information
-    :param `objfun`: Function to be optimized, in the form ``f(x, *args)``.
-    :type `objfun`: callable
-    :param `args`: Additional arguments passed to `objfun`.
-    :type `args`: tuple
-    :param `local`: The local minimization method (e.g. ``"L-BFGS-B"``). It can be one of the available
-     `scipy` local solvers or `OpenOpt` solvers.
-    :type `local`: string
-    :param `bounds`: A list of tuples specifying the lower and upper bound for each independent variable
-     [(`xl0`, `xu0`), (`xl1`, `xu1`), ...]
-    :type `bounds`: list
-    :param `maxfunevals`: The maximum number of function evaluations allowed.
-    :type `maxfunevals`: integer
-    :param `totaliter`: The maximum number of global iterations allowed.
-    :type `totaliter`: integer
-    :param `maxiter`: The maximum number of `Tabu Tunnelling` iterations allowed during each global iteration.
-    :type `maxiter`: integer
-    :param `glbtol`: The optimization will stop if the absolute difference between the current minimum objective
-     function value and the provided global optimum (`fmin`) is less than `glbtol`.
-    :type `glbtol`: float
-    :param `eps1`: A constant used to define an aspiration value for the objective function during the Tunnelling phase.
-    :type `eps1`: float
-    :param `eps2`: Perturbation factor used to move away from the latest local minimum at the start of a Tunnelling phase.
-    :type `eps2`: float
-    :param `tabulistsize`: The size of the tabu search list (a circular list).
-    :type `tabulistsize`: integer
-    :param `tabustrategy`: The strategy to use when the size of the tabu list exceeds `tabulistsize`. It can be
-     'oldest' to drop the oldest point from the tabu list or 'farthest' to drop the element farthest from
-     the last local minimum found.
-    :type `tabustrategy`: string
-    :param `fmin`: If known, the objective function global optimum value.
-    :type `fmin`: float
-    :param `disp`: If zero or defaulted, then no output is printed on screen. If a positive number, then status
-     messages are printed.
-    :type `disp`: integer
- 
-    :returns: A tuple of 5 elements, in the following order:
-
-     1. **best_x** (`array_like`): the estimated position of the global minimum.
-     2. **best_f** (`float`): the value of `objfun` at the minimum.
-     3. **evaluations** (`integer`): the number of function evaluations.
-     4. **msg** (`string`): a message describes the cause of the termination.
-     5. **tunnel_info** (`tuple`): a tuple containing the total number of Tunnelling phases performed and the
-        successful ones.
-
-    :rtype: `tuple`
+    hess : {callable, '2-point', '3-point'}, optional
+        Method for computing the Hessian matrix.  Must be of the form``hess(x, *args) - ndarray``.
+        Only for Scipy local solvers Newton-CG, dogleg, trust-ncg, trust-krylov, trust-exact and trust-constr.
+    hessp : callable, '2-point', '3-point', optional
+        Hessian of objective function times an arbitrary vector p. Only for Newton-CG, trust-ncg, trust-krylov, trust-constr. \n
+        Only one of hessp or hess needs to be given. If hess is provided, then hessp will be ignored. hessp must compute the Hessian 
+        times an arbitrary vector:
+        ``hessp(x, p, *args) ->  ndarray shape (n,)``
+    local_minimizer : str, optional, default ``L-BFGS-B``
+        Local optimizer to use. Can be one of `Scipy's local optimizers <https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize>`_ 
+        or `NLopt's local optimizers <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/>`_ (requires simplenlopt to be installed).
+        Due to name clashes, NLopt's solvers have to be indicated by `nlopt_algorithm`.
+        Should be one of:
+            - 'Nelder-Mead' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-neldermead.html>`_)
+            - 'Powell' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-powell.html>`_)
+            - 'CG' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-cg.html>`_)     
+            - 'BFGS' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-bfgs.html>`_)
+            - 'Newton-CG' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-newtoncg.html>`_)
+            - 'L-BFGS-B' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-lbfgsb.html>`_)
+            - 'TNC' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-tnc.html>`_)  
+            - 'COBYLA' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-cobyla.html>`_)     
+            - 'SLSQP' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-slsqp.html>`_)      
+            - 'trust-constr' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-trustconstr.html>`_)
+            - 'dogleg' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-dogleg.html>`_)     
+            - 'trust-ncg' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-trustncg.html>`_)
+            - 'trust-exact' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-trustexact.html>`_)
+            - 'trust-krylov' (`see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-trustkrylov.html>`_)
+            - 'nlopt_lbfgs': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#low-storage-bfgs>`_)
+            - 'nlopt_slsqp': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#slsqp>`_)
+            - 'nlopt_mma': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#mma-method-of-moving-asymptotes-and-ccsa>`_)
+            - 'nlopt_ccsaq': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#mma-method-of-moving-asymptotes-and-ccsa>`_)
+            - 'nlopt_tnewton': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#preconditioned-truncated-newton>`_)
+            - 'nlopt_tnewton_restart':(`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#preconditioned-truncated-newton>`_)
+            - 'nlopt_tnewton_precond': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#preconditioned-truncated-newton>`_)
+            - 'nlopt_tnewton_precond_restart': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#preconditioned-truncated-newton>`_)
+            - 'nlopt_var1': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#shifted-limited-memory-variable-metric>`_)
+            - 'nlopt_var2': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#shifted-limited-memory-variable-metric>`_)
+            - 'nlopt_bobyqa': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#bobyqa>`_)
+            - 'nlopt_cobyla': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#cobyla-constrained-optimization-by-linear-approximations>`_)
+            - 'nlopt_neldermead': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#nelder-mead-simplex>`_)
+            - 'nlopt_sbplx': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#sbplx-based-on-subplex>`_)
+            - 'nlopt_praxis': (`see here <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/#praxis-principal-axis>`_)
+    local_minimizer_options : dict, optional
+        Additional options passed to the local minimizer. Check the individual algorithm's description for possible options.
+    maxfunevals: int, optional, default None
+        The maximum number of function evaluations allowed.
+    totaliter: int
+        The maximum number of global iterations allowed.
+    maxiter: int
+        maximum number of `Tabu Tunnelling` iterations allowed during each global iteration.
+    glbtol: float, optional, default 1e-5
+        The optimization will stop if the absolute difference between the current minimum objective
+        function value and the provided global optimum (`fmin`) is less than `glbtol`.
+    eps1: float, optional, default 0.02
+        A constant used to define an aspiration value for the objective function during the Tunnelling phase.
+    eps2: float, optional, default 0.1
+        Perturbation factor used to move away from the latest local minimum at the start of a Tunnelling phase.
+    tabulistsize: int, optional, default 5
+        The size of the tabu search list (a circular list).
+    tabustrategy: str, optional, default 'farthest'
+        Must be one of 'farthest', 'oldest' \n
+        The strategy to use when the size of the tabu list exceeds tabulistsize. It can be 'oldest’' to drop the oldest point 
+        from the tabu list or 'farthest' to drop the element farthest from the last local minimum found.
+    fmin: float, optiona, default -numpy.inf
+        If known, the objective function global optimum value.
+    disp: int, optional, default 0
+    If 0 or defaulted, then no output is printed on screen. If > 0, then status
+    messages are printed.
+    
+    Returns
+    -------
+    result : :py:class:`~OptimizeResult`
+        The optimization result represented as a :py:class:`~OptimizeResult` object.
+        Important attributes are: ``x`` the solution array, ``fun`` the value
+        of the function at the solution, and ``message`` which describes the
+        cause of the termination.
+        See :py:class:`~OptimizeResult` for a description of other attributes.
 
     The detailed implementation of AMPGO is described in the paper 
     "Adaptive Memory Programming for Constrained Global Optimization" located here:
 
     http://leeds-faculty.colorado.edu/glover/fred%20pubs/416%20-%20AMP%20(TS)%20for%20Constrained%20Global%20Opt%20w%20Lasdon%20et%20al%20.pdf
 
-    Copyright 2014 Andrea Gavana
+    Copyright 2014 Andrea Gavana, 2021 Daniel Schmitz
     """
-   
-#if local not in SCIPY_LOCAL_SOLVERS + OPENOPT_LOCAL_SOLVERS:
-#        raise Exception('Invalid local solver selected: %s'%local)
-
-#    if local in SCIPY_LOCAL_SOLVERS and not SCIPY:
-#        raise Exception('The selected solver %s is not available as there is no scipy installation'%local)
-
-#    if local in OPENOPT_LOCAL_SOLVERS and not OPENOPT:
-#        raise Exception('The selected solver %s is not available as there is no OpenOpt installation'%local)
     
     if x0 == 'random':
         lower_bounds = numpy.asarray([b[0] for b in bounds])
@@ -232,7 +255,7 @@ def ampgo(objfun, bounds, args=(), x0 = 'random', jac = None, hess = None, hessp
         
         elif local_minimizer[:5] == 'nlopt' and not simplenlopt_available:
 
-            raise ValueError("simplenlopt not installed. Nlopt solvers not available!")
+            raise ModuleNotFoundError("simplenlopt not installed. Nlopt solvers not available!")
 
         else:
 
@@ -322,7 +345,7 @@ def ampgo(objfun, bounds, args=(), x0 = 'random', jac = None, hess = None, hessp
 
             elif local_minimizer[:5] == 'nlopt' and not simplenlopt_available:
 
-                raise ValueError("simplenlopt not installed. Nlopt solvers not available!")
+                raise ModuleNotFoundError("simplenlopt not installed. Nlopt solvers not available!")
 
             else:
 
@@ -440,13 +463,13 @@ def inverse_tunnel(xtf, ytf, aspiration, tabulist):
     yf = aspiration + numpy.sqrt(ytf*denominator)
     return yf
 
-'''
+
 from scipy.optimize import rosen, rosen_der, rosen_hess
 import numpy as np
 x0=np.array([10.8, 0.7])
 ampgo_res=ampgo(rosen, [(-1, 1.5), (-1, 1.5)], jac=rosen_der, hess = rosen_hess, local_minimizer='nlopt_lbfgs')#, local_minimizer_options={'gtol': 1e-3})
 print(ampgo_res.x)
-
+'''
 if __name__ == '__main__':
 
     import os
