@@ -463,13 +463,13 @@ def inverse_tunnel(xtf, ytf, aspiration, tabulist):
     yf = aspiration + numpy.sqrt(ytf*denominator)
     return yf
 
-
+'''
 from scipy.optimize import rosen, rosen_der, rosen_hess
 import numpy as np
 x0=np.array([10.8, 0.7])
 ampgo_res=ampgo(rosen, [(-1, 1.5), (-1, 1.5)], jac=rosen_der, hess = rosen_hess, local_minimizer='nlopt_lbfgs')#, local_minimizer_options={'gtol': 1e-3})
 print(ampgo_res.x)
-'''
+
 if __name__ == '__main__':
 
     import os
