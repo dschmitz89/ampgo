@@ -6,8 +6,10 @@
 Welcome to ampgo's documentation!
 =======================================
 
-A Pip installable version of Andrea Gavana's implementation of adaptive memory programming for global optimization.
-Possible local minimizers: SciPy or NLopt (requires simplenlopt)
+A Python implementation of adaptive memory programming for global optimization. Based on Andrea Gavana's code and adapted for
+further SciPy.optimize compatability. 
+
+Possible local minimizers: SciPy or NLopt (requires simplenlopt).
 
 Installation
 --------
