@@ -12,21 +12,21 @@ further SciPy.optimize compatability.
 Possible local minimizers: SciPy or NLopt (requires simplenlopt).
 
 Installation
---------
+---------------
 
 .. code:: bash
 
    pip install ampgo
 
 Example: Minimizing Himmelblau's function in ampgo
------
+---------------
 
 .. code-block:: python
 
    import ampgo
 
 Documentation
------
+---------------
 .. toctree::
    :maxdepth: 1
    :caption: Contents:

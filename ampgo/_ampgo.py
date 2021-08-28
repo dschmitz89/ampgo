@@ -72,14 +72,14 @@ def ampgo(objfun, bounds, args=(), x0 = 'random', jac = None, hess = None, hessp
         If '3-point' will use central difference to approximate the gradient.\n
         If True, objfun must return a tuple of both objective function and an array holding the gradient information
     hess : {callable, '2-point', '3-point'}, optional
-        Method for computing the Hessian matrix.  Must be of the form``hess(x, *args) - ndarray``.
+        Method for computing the Hessian matrix.  Must be of the form ``hess(x, *args) - ndarray``.
         Only for Scipy local solvers Newton-CG, dogleg, trust-ncg, trust-krylov, trust-exact and trust-constr.
     hessp : callable, '2-point', '3-point', optional
         Hessian of objective function times an arbitrary vector p. Only for Newton-CG, trust-ncg, trust-krylov, trust-constr. \n
         Only one of hessp or hess needs to be given. If hess is provided, then hessp will be ignored. hessp must compute the Hessian 
         times an arbitrary vector:
-        ``hessp(x, p, *args) ->  ndarray shape (n,)``
-    local_minimizer : str, optional, default ``L-BFGS-B``
+        ``hessp(x, p, *args) ->  ndarray shape (n,n)``
+    local_minimizer : str, optional, default ``L-BFGS-B`` \n 
         Local optimizer to use. Can be one of `Scipy's local optimizers <https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize>`_ 
         or `NLopt's local optimizers <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/>`_ (requires simplenlopt to be installed).
         Due to name clashes, NLopt's solvers have to be indicated by `nlopt_algorithm`.
@@ -132,7 +132,7 @@ def ampgo(objfun, bounds, args=(), x0 = 'random', jac = None, hess = None, hessp
         The size of the tabu search list (a circular list).
     tabustrategy: str, optional, default 'farthest'
         Must be one of 'farthest', 'oldest' \n
-        The strategy to use when the size of the tabu list exceeds tabulistsize. It can be 'oldest’' to drop the oldest point 
+        The strategy to use when the size of the tabu list exceeds tabulistsize. It can be 'oldest' to drop the oldest point 
         from the tabu list or 'farthest' to drop the element farthest from the last local minimum found.
     fmin: float, optiona, default -numpy.inf
         If known, the objective function global optimum value.
