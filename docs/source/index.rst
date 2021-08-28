@@ -16,7 +16,7 @@ Installation
 
    pip install ampgo
 
-Example: Minimizing the Rosenbrock function in simplenlopt and scipy
+Example: Minimizing Himmelblau's function in ampgo
 -----
 
 .. code-block:: python
