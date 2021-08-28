@@ -1,7 +1,7 @@
-simplenlopt
+ampgo
 ===========
 
 .. toctree::
    :maxdepth: 4
 
-   simplenlopt
+   ampgo
