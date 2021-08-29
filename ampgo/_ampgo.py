@@ -44,9 +44,9 @@ class OptimizeResult(dict):
             return self.__class__.__name__ + "()"
 
 def ampgo(objfun, bounds, args=(), x0 = 'random', jac = None, hess = None, hessp = None, 
-          local_minimizer='l-bfgs-b', local_minimizer_options={}, maxfunevals=None,
-          totaliter=20, maxiter=5, glbtol=1e-5, eps1=0.02, eps2=0.1, tabulistsize=5,
-          tabustrategy='farthest', fmin=-numpy.inf, disp=None):
+        local_minimizer='l-bfgs-b', local_minimizer_options={}, maxfunevals=None,
+        totaliter=20, maxiter=5, glbtol=1e-5, eps1=0.02, eps2=0.1, tabulistsize=5,
+        tabustrategy='farthest', fmin=-numpy.inf, disp=None):
     """
     Finds the global minimum of a function using the AMPGO (Adaptive Memory Programming for
     Global Optimization) algorithm. 
@@ -64,17 +64,17 @@ def ampgo(objfun, bounds, args=(), x0 = 'random', jac = None, hess = None, hessp
     x0 : {ndarray, 'random'}, optional, default 'random'
         Starting guess for the decision variable. If 'random', picks a random point in the feasible region.
     method : string, optional, default 'auto'
-    jac : {callable,  '2-point', '3-point', True}, optional, default None
+    jac : {callable,  '2-point', '3-point', True, None}, optional, default None
         If callable, must be in the form ``jac(x, *args)``, where ``x`` is the argument
         in the form of a 1-D array and args is a tuple of any additional fixed parameters 
         needed to completely specify the function.\n
         If '2-point' will use forward difference to approximate the gradient.\n
         If '3-point' will use central difference to approximate the gradient.\n
         If True, objfun must return a tuple of both objective function and an array holding the gradient information
-    hess : {callable, '2-point', '3-point'}, optional
+    hess : {callable, '2-point', '3-point', None}, optional, default None
         Method for computing the Hessian matrix.  Must be of the form ``hess(x, *args) - ndarray``.
         Only for Scipy local solvers Newton-CG, dogleg, trust-ncg, trust-krylov, trust-exact and trust-constr.
-    hessp : callable, '2-point', '3-point', optional
+    hessp : {callable, '2-point', '3-point', None}, optional, default None
         Hessian of objective function times an arbitrary vector p. Only for Newton-CG, trust-ncg, trust-krylov, trust-constr. \n
         Only one of hessp or hess needs to be given. If hess is provided, then hessp will be ignored. hessp must compute the Hessian 
         times an arbitrary vector:
@@ -119,9 +119,9 @@ def ampgo(objfun, bounds, args=(), x0 = 'random', jac = None, hess = None, hessp
         Additional options passed to the local minimizer. Check the individual algorithm's description for possible options.
     maxfunevals: int, optional, default None
         The maximum number of function evaluations allowed.
-    totaliter: int
+    totaliter: int, optional, default 20
         The maximum number of global iterations allowed.
-    maxiter : int
+    maxiter : int, optional, default 5
         maximum number of Tabu Tunnelling iterations allowed during each global iteration.
     glbtol : float, optional, default 1e-5
         The optimization will stop if the absolute difference between the current minimum objective
@@ -134,8 +134,7 @@ def ampgo(objfun, bounds, args=(), x0 = 'random', jac = None, hess = None, hessp
         The size of the tabu search list (a circular list).
     tabustrategy : str, optional, default 'farthest'
         Must be one of 'farthest', 'oldest' \n
-        The strategy to use when the size of the tabu list exceeds tabulistsize. It can be 'oldest' to drop the oldest point 
-        from the tabu list or 'farthest' to drop the element farthest from the last local minimum found.
+        The strategy to use when the size of the tabu list exceeds tabulistsize. It can be 'oldest' to drop the oldest point from the tabu list or 'farthest' to drop the element farthest from the last local minimum found.
     fmin : float, optional, default -numpy.inf
         If known, the objective function global optimum value.
     disp : int, optional, default 0
@@ -150,9 +149,7 @@ def ampgo(objfun, bounds, args=(), x0 = 'random', jac = None, hess = None, hessp
         cause of the termination.
         See OptimizeResult for a description of other attributes.
 
-    The detailed implementation of AMPGO is described in the
-    `paper <http://leeds-faculty.colorado.edu/glover/fred%20pubs/416%20-%20AMP%20(TS)%20for%20Constrained%20Global%20Opt%20w%20Lasdon%20et%20al%20.pdf>`_ 
-    "Adaptive Memory Programming for Constrained Global Optimization"
+    The detailed implementation of AMPGO is described in the `paper <http://leeds-faculty.colorado.edu/glover/fred%20pubs/416%20-%20AMP%20(TS)%20for%20Constrained%20Global%20Opt%20w%20Lasdon%20et%20al%20.pdf>`_ "Adaptive Memory Programming for Constrained Global Optimization"
 
     
 

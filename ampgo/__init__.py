@@ -1,3 +1,6 @@
-from ._ampgo import ampgo
+from ._ampgo import ampgo, OptimizeResult
 
-__all__ = ["ampgo"]
+__all__ = [
+    "ampgo",
+    "OptimizeResult",
+    ]
