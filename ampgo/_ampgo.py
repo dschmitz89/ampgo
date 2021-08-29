@@ -149,9 +149,9 @@ def ampgo(objfun, bounds, args=(), x0 = 'random', jac = None, hess = None, hessp
         cause of the termination.
         See OptimizeResult for a description of other attributes.
 
+    Notes
+    -------
     The detailed implementation of AMPGO is described in the `paper <http://leeds-faculty.colorado.edu/glover/fred%20pubs/416%20-%20AMP%20(TS)%20for%20Constrained%20Global%20Opt%20w%20Lasdon%20et%20al%20.pdf>`_ "Adaptive Memory Programming for Constrained Global Optimization"
-
-    
 
     Copyright 2014 Andrea Gavana, 2021 Daniel Schmitz
     """
