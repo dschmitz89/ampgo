@@ -2,6 +2,11 @@
 Global optimization via adaptive memory programming with a scipy.optimize like API.
 
 ## Installation
+```bash
+git clone https://github.com/dschmitz89/ampgo
+cd ampgo
+pip install .
+```
 
 ## Example: Minimizing the six-hump camelback function in ampgo
 ```python
@@ -23,9 +28,10 @@ print(res.fun)
 ## History
 Coded by Andrea Gavana, andrea.gavana@gmail.com. Original hosted at https://code.google.com/p/ampgo/.  Made available under the MIT licence. Usage and installation modified by Daniel Schmitz.
 
-Differences to original version:
+Differences compared to original version:
 * Support all of SciPy's local minimizers
 * Return a OptimizeResult class like SciPy's global optimizers
 * Require bounds instead of starting point
 * Jacobian and Hessian support
 * Support all of NLopt's local minimizers (requires [simplenlopt](https://simplenlopt.readthedocs.io/en/latest/index.html))
+* Drop support for OpenOpt solvers as OpenOpt has been stale for several years

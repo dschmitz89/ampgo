@@ -12,6 +12,14 @@ local minimizations from heuristically chosen startpoints.
 This package implements the same API as scipy's global optimizers. All local minimizers from SciPy 
 and from NLopt (requires `simplenlopt <https://simplenlopt.readthedocs.io/en/latest/index.html#>`_) can be employed for the local searches. 
 
+Installation
+=================================
+.. code:: bash
+
+   git clone https://github.com/dschmitz89/ampgo
+   cd ampgo
+   pip install .
+
 Example: Minimizing the six-hump camelback function in ampgo
 ==================
 .. code-block:: python
