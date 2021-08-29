@@ -82,7 +82,7 @@ def ampgo(objfun, bounds, args=(), x0 = 'random', jac = None, hess = None, hessp
     local_minimizer : str, optional, default ``L-BFGS-B`` \n 
         Local optimizer to use. Can be one of `Scipy's local optimizers <https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize>`_ 
         or `NLopt's local optimizers <https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/>`_ (requires simplenlopt to be installed). \n
-        Due to name clashes, NLopt's solvers have to be indicated by `nlopt_algorithm`. \n
+        Due to name clashes, NLopt's solvers have to be indicated by ``nlopt_algorithm``. \n
         Should be one of:
 
             - 'Nelder-Mead' ( `see here <https://docs.scipy.org/doc/scipy/reference/optimize.minimize-neldermead.html>`_ )
@@ -121,26 +121,25 @@ def ampgo(objfun, bounds, args=(), x0 = 'random', jac = None, hess = None, hessp
         The maximum number of function evaluations allowed.
     totaliter: int
         The maximum number of global iterations allowed.
-    maxiter: int
+    maxiter : int
         maximum number of Tabu Tunnelling iterations allowed during each global iteration.
-    glbtol: float, optional, default 1e-5
+    glbtol : float, optional, default 1e-5
         The optimization will stop if the absolute difference between the current minimum objective
-        function value and the provided global optimum (`fmin`) is less than `glbtol`.
-    eps1: float, optional, default 0.02
+        function value and the provided global optimum (``fmin``) is less than ``glbtol``.
+    eps1 : float, optional, default 0.02
         A constant used to define an aspiration value for the objective function during the Tunnelling phase.
-    eps2: float, optional, default 0.1
+    eps2 : float, optional, default 0.1
         Perturbation factor used to move away from the latest local minimum at the start of a Tunnelling phase.
-    tabulistsize: int, optional, default 5
+    tabulistsize : int, optional, default 5
         The size of the tabu search list (a circular list).
-    tabustrategy: str, optional, default 'farthest'
+    tabustrategy : str, optional, default 'farthest'
         Must be one of 'farthest', 'oldest' \n
         The strategy to use when the size of the tabu list exceeds tabulistsize. It can be 'oldest' to drop the oldest point 
         from the tabu list or 'farthest' to drop the element farthest from the last local minimum found.
-    fmin: float, optiona, default -numpy.inf
+    fmin : float, optional, default -numpy.inf
         If known, the objective function global optimum value.
-    disp: int, optional, default 0
-    If 0 or defaulted, then no output is printed on screen. If > 0, then status
-    messages are printed.
+    disp : int, optional, default 0
+        If 0 or defaulted, then no output is printed on screen. If > 0, then status messages are printed.
     
     Returns
     -------
