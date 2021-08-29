@@ -10,7 +10,7 @@ global optimization problems. Its core is a stochastic algorithm which executes 
 local minimizations from heuristically chosen startpoints. 
 
 This package implements the same API as scipy's global optimizers. All local minimizers from SciPy 
-and from NLopt (requires `simplenlopt <https://simplenlopt.readthedocs.io/en/latest/index.html#>_`) can be employed for the local searches. 
+and from NLopt (requires `simplenlopt <https://simplenlopt.readthedocs.io/en/latest/index.html#>`_) can be employed for the local searches. 
 
 Example: Minimizing the six-hump camelback function in ampgo
 ==================

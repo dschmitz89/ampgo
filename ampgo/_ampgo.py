@@ -8,7 +8,9 @@ except ModuleNotFoundError:
     simplenlopt_available = False
 
 class OptimizeResult(dict):
-    r""" Represents the optimization result.
+    r"""
+    Represents the optimization result.
+    
     Attributes
     ----------
     x : ndarray
