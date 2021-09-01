@@ -9,7 +9,7 @@ if __name__ == '__main__':
     
     setup(
         name='ampgo',   
-        version='1.0', 
+        version='1.0.1', 
         description='Adaptive Memory Programming for Global Optimization',
         url='https://github.com/dschmitz89/ampgo/',
         #download_url='https://github.com/dschmitz89/simplenlopt/archive/refs/tags/1.0.tar.gz',
@@ -20,6 +20,6 @@ if __name__ == '__main__':
         packages=['ampgo'],
         install_requires=[
             'numpy',
-            'scipy>0.11',
+            'scipy>1.2',
         ]            
     )
