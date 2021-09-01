@@ -135,8 +135,8 @@ def ampgo(objfun, bounds, args=(), x0 = 'random', jac = None, hess = None, hessp
     tabulistsize : int, optional, default 5
         The size of the tabu search list (a circular list).
     tabustrategy : str, optional, default 'farthest'
-        Must be one of 'farthest', 'oldest' \n
-        The strategy to use when the size of the tabu list exceeds tabulistsize. It can be 'oldest' to drop the oldest point from the tabu list or 'farthest' to drop the element farthest from the last local minimum found.
+        The strategy to use when the size of the tabu list exceeds tabulistsize. Must be one of 'farthest', 'oldest'.\n
+        It can be 'oldest' to drop the oldest point from the tabu list or 'farthest' to drop the element farthest from the last local minimum found.
     fmin : float, optional, default -numpy.inf
         If known, the objective function global optimum value.
     disp : int, optional, default 0
