@@ -24,6 +24,9 @@ res = ampgo.ampgo(obj, bounds)
 print(res.x)
 print(res.fun)
 ```
+## Documentation
+
+For the full API reference check out the [online documentation](https://ampgo.readthedocs.io/en/latest/index.html).
 
 ## History
 Coded by Andrea Gavana, andrea.gavana@gmail.com. Original hosted at https://code.google.com/p/ampgo/.  Made available under the MIT licence. Usage and installation modified by Daniel Schmitz.
