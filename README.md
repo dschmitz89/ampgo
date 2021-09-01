@@ -3,9 +3,7 @@ Global optimization via adaptive memory programming with a scipy.optimize like A
 
 ## Installation
 ```bash
-git clone https://github.com/dschmitz89/ampgo
-cd ampgo
-pip install .
+pip install ampgo
 ```
 
 ## Example: Minimizing the six-hump camelback function in ampgo

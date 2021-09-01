@@ -16,9 +16,7 @@ Installation
 =================================
 .. code:: bash
 
-   git clone https://github.com/dschmitz89/ampgo
-   cd ampgo
-   pip install .
+   pip install ampgo
 
 Example: Minimizing the six-hump camelback function in ampgo
 ==================
